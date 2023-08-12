@@ -1,4 +1,4 @@
-package com.example.tmttask
+package com.example.tmttask.ui.theme.Activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,9 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.tmttask.ui.theme.Activities.TestScreenActivity
-import com.example.tmttask.ui.theme.Activities.WebViewActivity
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.tmttask.ui.theme.Model.SplashScreens
 import com.example.tmttask.ui.theme.TmtTaskTheme
+import com.example.tmttask.ui.theme.View.SplashScreen
 import com.example.tmttask.ui.theme.ViewModel.AlarmHelper
 import com.example.tmttask.ui.theme.ViewModel.MainViewModel
 
@@ -36,7 +39,15 @@ class MainActivity : ComponentActivity() {
 
                 val activityLaunch = viewModel.getActivityToLaucnh()
 
+                val navController = rememberNavController()
 
+                NavHost(
+                    navController = navController,
+                    startDestination = SplashScreens.splash
+                ) {
+                    composable(route = SplashScreens.splash) {
+                        SplashScreen(navController)
+                    }
 
                 Column (
                     modifier = Modifier
@@ -110,14 +121,14 @@ fun DefaultPreview(){
 }
 
 @Composable
-fun PreviewContent(){
+fun PreviewContent() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(15.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Button(onClick = {}) {
             Text("WebViewActivity", fontWeight = FontWeight.Bold)
         }
@@ -129,6 +140,7 @@ fun PreviewContent(){
 
         }
     }
+}
 }
 
 
